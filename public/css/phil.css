@@ -1,0 +1,355 @@
+.judul-1, .judul-2, .judul-3, .judul-4 {
+    text-align: center;
+    font-weight: bold;
+    font-family: 'rowdies', serif;
+    margin: 0.3em 0;
+}
+
+.judul-1 {
+    font-size: 2.2em;
+}
+.judul-2 {
+    font-size: 1.8em;
+}
+.judul-3 {
+    font-size: 1.4em;
+}
+.judul-4 {
+    font-size: 16px;
+}
+
+/* container body */
+.container-phil {
+    display: grid;
+    grid-template-columns: minmax(360px,1fr);
+    margin: 4em 0 0;
+}
+
+/* halaman konten */
+.konten-phil {
+    display: grid;
+    grid-auto-rows: max-content;
+    align-items: start;
+    /* margin: 0.3em; */
+    padding: 0em 0.3em;
+    /* border: 1px solid black; */
+    justify-self: center;
+    max-width: 600px;
+    width: 100%;
+    grid-template-columns: minmax(100%,1fr);
+}
+.card-phil {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 150px;
+    border-radius: 4px;
+    border: 1px solid black;
+    background-color: white;
+    margin-bottom: 1em;
+}
+
+.card-judul {
+    display: flex;
+    place-items: center;
+    place-content: center;
+}
+
+.card-phil .card-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0.5em;
+}
+
+.filter-harian {
+    grid-template-columns: 80px 139px 119px;
+    column-gap: 0.3rem;
+    margin-bottom: 0.3em;
+}
+
+.konten-phil.registrasi-harapan {
+    max-width: 100%;
+}
+
+.label-phil {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+.input-phil input,
+.input-phil textarea,
+.input-phil select {
+    font-size: 1em;
+    width: 100%;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    border: 1px solid white;
+    background-color: white;
+}
+.input-phil input:hover,
+.input-phil textarea:hover,
+.input-phil select:hover {
+    border: 1px solid #2980B9;
+}
+
+.input-phil {
+    position: relative;
+}
+.input-phil span {
+    position: absolute;
+    right: 0.3em;
+    bottom: 0.3em;
+    font-size: 0.7em;
+}
+
+.button-konten-phil {
+    display: flex;
+    justify-content: center;
+}
+.button-konten-phil button {
+    width: 9em;
+    font-size: 1.2em;
+    background-color: black;
+    color: white;
+    border: 1px solid #2980B9;
+    border-radius: 0.3em;
+    padding: 0.2em 0;
+    margin: 1em 0;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 300ms;
+}
+.button-konten-phil button:hover {
+    background-color: #2980B9;
+    color: black;
+}
+
+.button-konten-phil button:disabled {
+    background-color: #98c0da;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* section untuk 1 kolom */
+.section-1 {
+    display: grid;
+    grid-template-columns: minmax(360px,1fr);
+    justify-content: center;
+    padding: 0.5em;
+    width: 100%;
+}
+
+/* section untuk 2 kolom */
+.section-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(360px,1fr));
+    justify-content: center;
+    padding: 0.5em;
+    gap: 0.5em;
+    width: 100%;
+}
+
+/* section untuk 3 kolom */
+.section-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(360px,1fr));
+    justify-content: center;
+    padding: 0.5em;
+    gap: 0.5em;
+    width: 100%;
+}
+
+/* form isian */
+.form-phil {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    row-gap: 1em;
+    column-gap: 0.3;
+    justify-content: center;
+    align-items: start;
+    padding: 0.5em;
+}
+
+.container-gambar-dana {
+    width: 100%;
+    justify-self: center;
+    position: relative;
+}
+.container-gambar-dana img {
+    width: 100%;
+}
+.nama-dana {
+    position: absolute;
+    left: 37%;
+    top: 27%;
+    font-family: 'rowdies', serif;
+    font-weight: 600;
+    font-size: 12px;
+    width: 43%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 6px auto;
+    text-align: center;
+    color: black;
+    text-decoration: underline;
+}
+.nama-peserta {
+    position: absolute;
+    left: 38%;
+    top: 22%;
+    font-family: 'rowdies', serif;
+    font-weight: 400;
+    font-size: 10px;
+    width: 43%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 6px auto;
+    text-align: center;
+    color: black;
+}
+.ucapan-dana {
+    position: absolute;
+    display: flex;
+    left: 10%;
+    top: 40%;
+    font-family: 'rowdies', serif;
+    font-weight: 300;
+    font-size: 12px;
+    width: 80%;
+    min-height: 22%;
+    background-color: #e2b21d;
+    border: 1px solid #e2b21d;
+    border-radius: 10px;
+    padding: 6px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    text-align: center;
+}
+.harapan-peserta {
+    position: absolute;
+    display: flex;
+    left: 10%;
+    top: 40%;
+    font-family: 'rowdies', serif;
+    font-weight: 300;
+    font-size: 10px;
+    width: 80%;
+    min-height: 28%;
+    background-color: #e2b21d;
+    border: 1px solid #e2b21d;
+    border-radius: 10px;
+    padding: 6px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    text-align: center;
+}
+
+.konten-phil.sambutan-panitia {
+    max-width: 1000px;
+    background-image: url('../images/shop/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 1em;
+    padding: 1.2em;
+}
+
+.konten-phil.video-teaser {
+    max-width: 1000px;
+}
+
+.konten-phil.video-teaser .konten-video {
+    border: 3px solid #2980B9;
+}
+
+.konten-phil.sambutan-panitia p {
+    text-indent: 3em;
+    text-align: justify;
+}
+.konten-phil.sambutan-panitia img {
+    width: 20%;
+}
+
+/* template tabel */
+.phil-tabel {
+    display: grid;
+    grid-template-columns: minmax(360px, 992px);
+    place-content: center;
+    row-gap: 0.5em;
+    grid-template-areas: 'search'
+        'tabel'
+}
+.phil-tabel .search {
+    display: grid;
+    grid-area: search;
+    max-width: 400px;
+    grid-template-columns: 60px 139px;
+    column-gap: 0.3em;
+    place-items: center start;
+    margin: 0px 0.5em;
+    box-sizing: border-box;
+}
+
+.phil-tabel .filter-select {
+    grid-template-columns: 60px 139px 1fr;
+}
+.phil-tabel .tabel {
+    display: grid;
+    grid-area: tabel;
+    grid-template-columns: 1fr;
+    margin: 0px 0.5em;
+    box-sizing: border-box;
+}
+/* Media Queries */
+
+/* Laptop */
+@media (max-width: 1399.98px) {
+    .container-phil{
+        font-size: 95%;
+    }
+}
+
+/* Tablet */
+@media (max-width: 991.98px) {
+    .container-phil{
+        font-size: 85%;
+    }
+    /* section untuk 2 kolom */
+    .section-2 {
+        grid-template-columns: repeat(auto-fill, minmax(360px,1fr));
+    }
+    /* section untuk 3 kolom */
+    .section-3 {
+        grid-template-columns: repeat(auto-fill, minmax(360px,1fr));
+    }
+}
+
+/* Mobile Phone Landscape */
+@media (max-width: 767.98px) {
+    .container-phil {
+        font-size: 80%;
+    }
+    .ucapan-dana {
+        font-size: 11px;
+    }
+    .nama-dana {
+        font-size: 11px;
+    }
+}
+
+/* Mobile phone */
+@media (max-width: 575.98px) {
+    .container-phil {
+        font-size: 70%;
+    }
+    .nama-dana {
+        font-size: 10px;
+    }
+    .ucapan-dana {
+        font-size: 10px;
+    }
+}
+
+
+

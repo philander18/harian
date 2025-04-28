@@ -5,6 +5,7 @@ namespace Config;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
 use CodeIgniter\HotReloader\HotReloader;
+use CodeIgniter\Database\BaseConnection;
 
 /*
  * --------------------------------------------------------------------
@@ -33,7 +34,7 @@ Events::on('pre_system', static function (): void {
             ob_end_flush();
         }
 
-        ob_start(static fn ($buffer) => $buffer);
+        ob_start(static fn($buffer) => $buffer);
     }
 
     /*
@@ -51,5 +52,12 @@ Events::on('pre_system', static function (): void {
                 (new HotReloader())->run();
             });
         }
+    }
+});
+
+Events::on('post_controller', function () {
+    $db = db_connect();
+    if ($db instanceof BaseConnection) {
+        $db->close();
     }
 });
