@@ -301,6 +301,21 @@
     margin: 0px 0.5em;
     box-sizing: border-box;
 }
+
+/* Modal form */
+div.form-modal {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+div.form-modal label {
+    flex: 1.8;
+    text-align: start;
+}
+div.form-modal input,div.form-modal textarea,div.form-modal select {
+    flex: 3.2;
+}
+
 /* Media Queries */
 
 /* Laptop */
