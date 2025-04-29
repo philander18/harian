@@ -10,6 +10,9 @@
             <button x-show="log.length" type="button" class="btn btn-sm btn-dark fw-bold" id="tambah" data-bs-toggle="modal" data-bs-target="#form-harian">Tambah</button>
             <button x-show="!log.length" type="button" class="btn btn-sm btn-dark fw-bold" id="generate">Generate</button>
         </div>
+        <div class="konten-phil">
+            <div class="judul-3 text-decoration-underline" style="text-align: start;">Total Waktu : <span x-text="log.length ? totalDurasi : '0'"></span></div>
+        </div>
     </section>
     <template x-if="hasOperasional()">
         <section class="section-2" style="padding: 0; gap: 0;">
@@ -25,7 +28,7 @@
                         <div class="card-body">
                             <textarea class="form-control mr-4" :data-id="item.id" :placeholder="item.subkategori" rows="3" x-model="item.keterangan" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)"></textarea>
                             <div class="card-durasi">
-                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)">
+                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.1000="await updateData(item.id, item.keterangan, item.durasi);refreshData()">
                                 Menit
                             </div>
                         </div>
@@ -48,7 +51,7 @@
                         <div class="card-body">
                             <textarea class="form-control mr-4" :data-id="item.id" :placeholder="item.subkategori" rows="3" x-model="item.keterangan" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)"></textarea>
                             <div class="card-durasi">
-                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)">
+                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi);refreshData()">
                                 Menit
                             </div>
                         </div>
@@ -71,7 +74,7 @@
                         <div class="card-body">
                             <textarea class="form-control mr-4" :data-id="item.id" :placeholder="item.subkategori" rows="3" x-model="item.keterangan" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)"></textarea>
                             <div class="card-durasi">
-                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)">
+                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi);refreshData()">
                                 Menit
                             </div>
                         </div>
@@ -94,7 +97,7 @@
                         <div class="card-body">
                             <textarea class="form-control mr-4" :data-id="item.id" :placeholder="item.subkategori" rows="3" x-model="item.keterangan" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)"></textarea>
                             <div class="card-durasi">
-                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)">
+                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi);refreshData()">
                                 Menit
                             </div>
                         </div>

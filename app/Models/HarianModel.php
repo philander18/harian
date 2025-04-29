@@ -57,4 +57,8 @@ class HarianModel extends Model
     {
         return $this->db->table('log')->where('id', $id)->update($data);
     }
+    public function total_durasi($tanggal)
+    {
+        return $this->db->table('log')->select('sum(durasi) as total')->where("tanggal = '" . $tanggal . "'")->get()->getResultArray();
+    }
 }

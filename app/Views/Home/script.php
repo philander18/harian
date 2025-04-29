@@ -9,6 +9,7 @@
             selectedSubkategori: '',
             keterangan: '',
             durasi: '',
+            totalDurasi: 0,
 
             loadData() {
                 fetch('<?= base_url(); ?>home/get_log', {
@@ -23,6 +24,27 @@
                     .then(response => response.json())
                     .then(data => {
                         this.log = data;
+                        this.totalDurasi = data.reduce((sum, item) => {
+                            return sum + (parseFloat(item.durasi) || 0);
+                        }, 0);
+                    })
+                    .catch(error => console.error('Gagal memuat data:', error));
+            },
+            refreshData() {
+                fetch('<?= base_url(); ?>home/get_log', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            tanggal: this.tanggal,
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.totalDurasi = data.reduce((sum, item) => {
+                            return sum + (parseFloat(item.durasi) || 0);
+                        }, 0);
                     })
                     .catch(error => console.error('Gagal memuat data:', error));
             },
@@ -91,8 +113,9 @@
                     alert('Terjadi kesalahan.');
                 }
             },
-            updateData(id, keterangan, durasi) {
-                fetch('<?= base_url(); ?>home/update_data', {
+            async updateData(id, keterangan, durasi) {
+                try {
+                    const response = await fetch('<?= base_url(); ?>home/update_data', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -102,9 +125,15 @@
                             keterangan: keterangan,
                             durasi: durasi,
                         })
-                    })
-                    .then(response => response.json())
-                    .then(data => {})
+                    });
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error('Gagal update data:', error);
+                    return {
+                        success: false
+                    };
+                }
             },
 
             hasOperasional() {
