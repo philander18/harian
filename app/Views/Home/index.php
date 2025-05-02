@@ -7,7 +7,7 @@
         <div class="konten-phil filter-harian">
             <div class="judul-4">Tanggal :</div>
             <input class="form-control form-control-sm" type="date" x-model="tanggal" id="tanggal" @change="loadData()">
-            <button x-show="log.length" type="button" class="btn btn-sm btn-dark fw-bold" id="tambah" data-bs-toggle="modal" data-bs-target="#form-harian">Tambah</button>
+            <button x-show="log.length" type="button" class="btn btn-sm btn-dark fw-bold" id="tambah" data-bs-toggle="modal" data-bs-target="#form-harian" @click="formTambah()">Tambah</button>
             <button x-show="!log.length" type="button" class="btn btn-sm btn-dark fw-bold" id="generate">Generate</button>
         </div>
         <div class="konten-phil">

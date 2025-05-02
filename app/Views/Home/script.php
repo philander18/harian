@@ -81,6 +81,12 @@
                     this.keterangan.trim() !== '' &&
                     this.durasi.trim() !== '';
             },
+            formTambah() {
+                this.selectedKategori = "Operasional";
+                this.getSubkategori();
+                this.keterangan = '';
+                this.durasi = '';
+            },
             async tambahTask() {
                 try {
                     const response = await fetch('<?= base_url(); ?>home/tambah_task', {
