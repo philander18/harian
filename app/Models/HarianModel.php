@@ -49,6 +49,10 @@ class HarianModel extends Model
         $where = "kategori = '" . $kategori . "' and subkategori = '" . $subkategori . "'";
         return $this->db->table('kategori')->select('id')->where($where)->get()->getResultArray();
     }
+    public function get_tahun()
+    {
+        return $this->db->table('log')->select("year(tanggal) as tahun")->groupBy("year(tanggal)")->get()->getResultArray();
+    }
     public function tambah_task($data)
     {
         return $this->db->table('log')->insert($data);
@@ -60,5 +64,19 @@ class HarianModel extends Model
     public function total_durasi($tanggal)
     {
         return $this->db->table('log')->select('sum(durasi) as total')->where("tanggal = '" . $tanggal . "'")->get()->getResultArray();
+    }
+    public function summary($semester, $tahun)
+    {
+        $select = "kategori.kategori as kategori, round((sum(durasi)/480),2) as hari";
+        $bulan = $semester == 1 ? '1 and 6' : '7 and 12';
+        $where = "log.durasi <> 0 and year(log.tanggal) = " . $tahun . " and month(log.tanggal) BETWEEN " . $bulan;
+        return $this->db->table('log')->join('kategori', 'log.kategori_id = kategori.id', 'left')->select($select)->where($where)->groupBy('kategori.kategori')->get()->getResultArray();
+    }
+
+    public function log($tanggal_awal, $tanggal_akhir)
+    {
+        $select = "log.tanggal as tanggal, (log.durasi / 60) as durasi, kategori.kategori as kategori, kategori.subkategori as subkategori, log.keterangan as keterangan";
+        $where = "log.durasi <> 0 and tanggal >= '" . $tanggal_awal . "' and tanggal <= '" . $tanggal_akhir . "'";
+        return $this->db->table('log')->join('kategori', 'log.kategori_id = kategori.id', 'left')->select($select)->where($where)->orderBy("log.tanggal asc, kategori.kategori asc, kategori.subkategori asc")->get()->getResultArray();
     }
 }

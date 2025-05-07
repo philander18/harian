@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <textarea class="form-control mr-4" :data-id="item.id" :placeholder="item.subkategori" rows="3" x-model="item.keterangan" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)"></textarea>
                             <div class="card-durasi">
-                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.1000="await updateData(item.id, item.keterangan, item.durasi);refreshData()">
+                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.1000="await updateData(item.id, item.keterangan, item.durasi);refreshData();getSummary();">
                                 Menit
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="card-body">
                             <textarea class="form-control mr-4" :data-id="item.id" :placeholder="item.subkategori" rows="3" x-model="item.keterangan" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)"></textarea>
                             <div class="card-durasi">
-                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi);refreshData()">
+                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi);refreshData();getSummary();">
                                 Menit
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                         <div class="card-body">
                             <textarea class="form-control mr-4" :data-id="item.id" :placeholder="item.subkategori" rows="3" x-model="item.keterangan" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)"></textarea>
                             <div class="card-durasi">
-                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi);refreshData()">
+                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi);refreshData();getSummary();">
                                 Menit
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                         <div class="card-body">
                             <textarea class="form-control mr-4" :data-id="item.id" :placeholder="item.subkategori" rows="3" x-model="item.keterangan" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi)"></textarea>
                             <div class="card-durasi">
-                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi);refreshData()">
+                                <input class="form-control form-control-sm mt-2 durasi-harian d-inline" type="text" placeholder="Durasi" aria-label="default input example" style="width: 70px; margin-right:8px" :data-id="item.id" x-model="item.durasi" @keyup.debounce.3000="updateData(item.id, item.keterangan, item.durasi);refreshData();getSummary();">
                                 Menit
                             </div>
                         </div>
@@ -106,6 +106,59 @@
             </template>
         </section>
     </template>
+    <section class="section-1">
+        <div class="konten-phil">
+            <div class="judul-2">Reporting</div>
+            <div class="judul-3 text-decoration-underline mb-2" style="text-align: start;">Export Log</div>
+            <form action="<?= base_url(); ?>home/export_log" method="get">
+                <div class="filter-date mb-2">
+                    <div class="judul-4">Tanggal </div>
+                    <input class="form-control form-control-sm" type="date" name="tanggal_awal" required>
+                    <div class="judul-4"> - </div>
+                    <input class="form-control form-control-sm" type="date" name="tanggal_akhir" required>
+                </div>
+                <button type="submit" class="btn btn-sm btn-dark fw-bold" style="width: 120px;">Export</button>
+            </form>
+        </div>
+    </section>
+    <section class="section-1">
+        <div class="konten-phil">
+            <div class="judul-2 mb-4">Summary per Semester</div>
+            <div class="filter-semester">
+                <div class="judul-4">Semester</div>
+                <select class="form-select" id="semester-harian" aria-label="Semester" style="margin-left: 12px;" x-model="selectedSemester" @change="getSummary();">
+                    <option value="1" :selected="selectedSemester == 1">1</option>
+                    <option value="2" :selected="selectedSemester == 2">2</option>
+                </select>
+                <div class="judul-4 ms-4">Tahun</div>
+                <select class="form-select" id="tahun-harian" aria-label="Tahun" style="margin-left: 12px;" x-model="selectedTahun" @change="getSummary()">
+                    <template x-for="(option,index) in tahun" :key="index">
+                        <option :value="option.tahun" x-text="option.tahun" :selected="option.tahun === selectedTahun"></option>
+                    </template>
+                </select>
+            </div>
+            <div class="summary">
+                <div class="judul-4">Improvement</div>
+                <div class="judul-4">:</div>
+                <div class="judul-4" x-text="summary.find(item => item.kategori === 'Improvement') ? summary.find(item => item.kategori === 'Improvement').hari + ' Hari' : '0 Hari'"></div>
+            </div>
+            <div class="summary">
+                <div class="judul-4">Operasional</div>
+                <div class="judul-4">:</div>
+                <div class="judul-4" x-text="summary.find(item => item.kategori === 'Operasional') ? summary.find(item => item.kategori === 'Operasional').hari + ' Hari' : '0 Hari'"></div>
+            </div>
+            <div class="summary">
+                <div class="judul-4">Upgrade Skill</div>
+                <div class="judul-4">:</div>
+                <div class="judul-4" x-text="summary.find(item => item.kategori === 'Upgrade Skill') ? summary.find(item => item.kategori === 'Upgrade Skill').hari + ' Hari' : '0 Hari'"></div>
+            </div>
+            <div class="summary">
+                <div class="judul-4">Project</div>
+                <div class="judul-4">:</div>
+                <div class="judul-4" x-text="summary.find(item => item.kategori === 'Project') ? summary.find(item => item.kategori === 'Project').hari + ' Hari' : '0 Hari'"></div>
+            </div>
+        </div>
+    </section>
     <div class="modal fade" id="form-harian" tabindex="-1" aria-labelledby="Form Input" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

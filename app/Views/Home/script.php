@@ -5,11 +5,16 @@
             tanggal: '<?= date('20y-m-d'); ?>',
             kategori: [],
             subkategori: [],
+            tahun: [],
             selectedKategori: 'Operasional',
             selectedSubkategori: '',
+            selectedSemester: '',
+            selectedTahun: '',
             keterangan: '',
             durasi: '',
             totalDurasi: 0,
+            summary: [],
+            today: new Date(),
 
             loadData() {
                 fetch('<?= base_url(); ?>home/get_log', {
@@ -71,6 +76,33 @@
                     .then(data => {
                         this.subkategori = data;
                         this.selectedSubkategori = data[0].subkategori
+                    })
+                    .catch(error => console.error('Gagal memuat data:', error));
+            },
+
+            getSummary() {
+                fetch('<?= base_url(); ?>home/get_summary', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            semester: this.selectedSemester,
+                            tahun: this.selectedTahun,
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.summary = data;
+
+                    })
+                    .catch(error => console.error('Gagal memuat data:', error));
+            },
+            getTahun() {
+                fetch('<?= base_url(); ?>home/get_tahun')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.tahun = data;
                     })
                     .catch(error => console.error('Gagal memuat data:', error));
             },
@@ -156,9 +188,13 @@
             },
 
             init() {
+                this.selectedSemester = '<?= date('n'); ?>' < 7 ? 1 : 2;
+                this.selectedTahun = '<?= date('20y'); ?>';
                 this.loadData();
+                this.getTahun();
                 this.getKategori();
                 this.getSubkategori();
+                this.getSummary();
             }
         }
     }

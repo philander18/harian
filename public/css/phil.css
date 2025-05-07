@@ -65,6 +65,25 @@
     column-gap: 0.3rem;
     margin-bottom: 0.3em;
 }
+.filter-date {
+    display: grid;
+    grid-template-columns: 70px minmax(130px,1fr) 8px minmax(130px,1fr);
+    column-gap: 0.3rem;
+    margin-bottom: 0.3em;
+}
+.filter-semester {
+    display: grid;
+    grid-template-columns: 80px 60px 70px 90px;
+    column-gap: 0.3rem;
+    margin-bottom: 0.3em;
+}
+.summary {
+    display: grid;
+    grid-template-columns: 120px 15px 1fr;
+    justify-items: start;
+    column-gap: 0.3rem;
+    margin-bottom: 0.3em;
+}
 
 .konten-phil.registrasi-harapan {
     max-width: 100%;

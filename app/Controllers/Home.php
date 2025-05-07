@@ -15,6 +15,8 @@ class Home extends BaseController
     public function index()
     {
         // dd($this->HarianModel->get_subkategori('Operasional', '2025-04-29'));
+        // $this->export_log();
+        // dd($this->HarianModel->summary(1, 2025));
         $session = session();
         if (!$session->has('akses')) {
             return redirect()->to('home/portal');
@@ -42,6 +44,19 @@ class Home extends BaseController
     {
         $data_kirim = $this->request->getJSON(true); // true = as array
         $data = $this->HarianModel->get_subkategori($data_kirim['kategori'], $data_kirim['tanggal']);
+        return $this->response->setJSON($data);
+    }
+
+    public function get_tahun()
+    {
+        $data = $this->HarianModel->get_tahun();
+        return $this->response->setJSON($data);
+    }
+
+    public function get_summary()
+    {
+        $data_kirim = $this->request->getJSON(true); // true = as array
+        $data = $this->HarianModel->summary($data_kirim['semester'], $data_kirim['tahun']);
         return $this->response->setJSON($data);
     }
 
@@ -109,6 +124,41 @@ class Home extends BaseController
         $session = session();
         $session->remove('akses');
         return redirect()->to('home/portal');
+        exit;
+    }
+
+    public function export_log()
+    {
+        $tanggal_awal = $this->request->getGet('tanggal_awal');
+        $tanggal_akhir = $this->request->getGet('tanggal_akhir');
+        if (!$tanggal_awal || !$tanggal_akhir) {
+            return redirect()->back()->with('error', 'Tanggal awal dan akhir wajib diisi');
+        }
+
+        if ($tanggal_awal > $tanggal_akhir) {
+            return redirect()->back()->with('error', 'Tanggal awal tidak boleh lebih besar dari tanggal akhir');
+        }
+        $data = $this->HarianModel->log($tanggal_awal, $tanggal_akhir);
+
+        // Header CSV
+        $filename = 'log_' . date('YmdHis') . '.csv';
+        header("Content-Type: text/csv");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+
+        // Buka output
+        $file = fopen('php://output', 'w');
+
+        // Tulis header kolom jika ada data
+        if (!empty($data)) {
+            fputcsv($file, array_keys((array)$data[0]));
+        }
+
+        // Tulis baris data
+        foreach ($data as $row) {
+            fputcsv($file, (array)$row);
+        }
+
+        fclose($file);
         exit;
     }
 }
